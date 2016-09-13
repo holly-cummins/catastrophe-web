@@ -47,7 +47,7 @@ This can then be pushed to Bluemix with
 
 # Dependencies 
 
-This sample uses [WebSphere Liberty](http://wasdev.net), Java EE interfaces, and the [webjars] bundles of the [Bootstrap UI framework](http://getbootstrap.com). 
+This sample uses [WebSphere Liberty](http://wasdev.net), Java EE interfaces, the [webjars](http://www.webjars.org) bundles of the [Bootstrap UI framework](http://getbootstrap.com), and the [Liberty Consul Service Discovery sample](https://github.com/WASdev/sample.consulservicediscovery).
 
 # More information 
 
