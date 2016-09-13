@@ -27,7 +27,7 @@ import catastrophe.discovery.ServiceFinder;
 public class RestCatStuff {
 
 	private static final String CAT_PATH = "/rest/cats";
-	private static final String AUTH_PATH = "/rest/auth";
+	private static final String USERS_PATH = "/rest/users";
 	private static final String SCORING_PATH = "/rest/scoring";
 
 	Client client = ClientBuilder.newClient();
@@ -59,8 +59,8 @@ public class RestCatStuff {
 			int score = scoreTarget.request(MediaType.APPLICATION_JSON).get(Integer.class);
 
 			System.out.println("Going to update " + userName + " with a score of " + score + ".");
-			String authHost = new ServiceFinder().getHostAndPort(AUTH_PATH);
-			String updateScorePath = AUTH_PATH + "/updateScore/";
+			String authHost = new ServiceFinder().getHostAndPort(USERS_PATH);
+			String updateScorePath = USERS_PATH + "/updateScore/";
 			System.out.println("Requesting " + authHost + updateScorePath);
 			WebTarget authTarget = client.target("http://" + authHost).path(updateScorePath)
 					.queryParam("userName", userName).queryParam("score", score);
@@ -81,16 +81,16 @@ public class RestCatStuff {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List getLeaderboard() {
 
-		String host = new ServiceFinder().getHostAndPort(AUTH_PATH);
+		String host = new ServiceFinder().getHostAndPort(USERS_PATH);
 		if (host != null) {
-			String authPath = AUTH_PATH + "/leaderboard";
+			String authPath = USERS_PATH + "/leaderboard";
 			System.out.println("Requesting " + authPath);
 			WebTarget target = client.target("http://" + host).path(authPath);
 			List response = target.request(MediaType.APPLICATION_JSON).get(new GenericType<List>(List.class));
 
 			return response;
 		} else {
-			System.out.println("No provider for service " + AUTH_PATH);
+			System.out.println("No provider for service " + USERS_PATH);
 			return null;
 		}
 	}
