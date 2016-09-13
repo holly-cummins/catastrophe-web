@@ -18,7 +18,6 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import catastrophe.auth.User;
 import catastrophe.cats.Cat;
 import catastrophe.cats.MiniCat;
 import catastrophe.cats.ScoredCat;
@@ -80,15 +79,14 @@ public class RestCatStuff {
 	@GET
 	@Path("scores")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<User> getLeaderboard() {
+	public List getLeaderboard() {
 
 		String host = new ServiceFinder().getHostAndPort(AUTH_PATH);
 		if (host != null) {
 			String authPath = AUTH_PATH + "/leaderboard";
 			System.out.println("Requesting " + authPath);
 			WebTarget target = client.target("http://" + host).path(authPath);
-			List<User> response = target.request(MediaType.APPLICATION_JSON)
-					.get(new GenericType<List<User>>(List.class));
+			List response = target.request(MediaType.APPLICATION_JSON).get(new GenericType<List>(List.class));
 
 			return response;
 		} else {
