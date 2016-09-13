@@ -5,7 +5,8 @@
 # About this sample
 
 This sample is one microservice in a [larger sample 
-microservices application](http://github.com/holly-cummins/catastrophe-microservices). I've written a [blog post](https://developer.ibm.com/wasdev/blog/2016/06/01/putting-micro-microservices/) describing the overall sample. 
+microservices application](http://github.com/holly-cummins/catastrophe-microservices). If you’re wondering about the names – all good internet content involves cats. This sample was written
+to be used as a live demo, and I have some experience of live demos, so I called it – of course – cat-astrophe. 
 
 This service stores information about cats. 
 
@@ -51,5 +52,7 @@ This sample uses [WebSphere Liberty](http://wasdev.net), Java EE interfaces, the
 
 # More information 
 
-Slideshare: <iframe src="//www.slideshare.net/slideshow/embed_code/key/sKoNWL00L0CeRT" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/HollyCummins/microservices-from-dream-to-reality-in-an-hour" title="Microservices: from dream to reality in an hour" target="_blank">Microservices: from dream to reality in an hour</a> </strong> from <strong><a href="//www.slideshare.net/HollyCummins" target="_blank">Holly Cummins</a></strong> </div>
+* [A Blog post about microservices and this sample](https://developer.ibm.com/wasdev/blog/2016/06/01/putting-micro-microservices/)
+* [The talk which accompanies this demo](http://www.slideshare.net/HollyCummins/microservices-from-dream-to-reality-in-an-hour")
+* [Liberty and microservices](https://developer.ibm.com/wasdev/docs/microservices/)
 
