@@ -1,0 +1,13 @@
+.gradle/
+.settings/
+.project
+.classpath
+build/
+bin/
+/RemoteSystemsTempFiles/
+
+src/main/.DS_Store
+
+src/main/webapp/.DS_Store
+
+src/main/webapp/catimages/.DS_Store
