@@ -4,7 +4,7 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 	$scope.noWrapSlides = false;
 	$http.get("rest/cat/cats").success(function(response) {
 		$scope.slides = response;
-		console.log("setting slides " + $scope.slides);
+
 		for (var i = 0; i < response.length; i++) {
 			 // Add an index
 			 $scope.slides[i].index = i;
@@ -29,6 +29,8 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 		console.log("HOLLY " + $scope.slides);
 		return $scope.slides.filter(function(s) {
 			console.log("Checking active on " + s);
+							console.log("id " + s.id);
+							console.log("is " + s.active);
 			return s.active;
 		})[0];
 	};
