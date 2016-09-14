@@ -26,6 +26,7 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 				});
 	};
 	$scope.getActiveSlide = function() {
+		console.log("HOLLY " + $scope.slides);
 		return $scope.slides.filter(function(s) {
 			console.log("Checking active on " + s);
 			return s.active;
