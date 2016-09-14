@@ -4,7 +4,7 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 	$scope.noWrapSlides = false;
 	$http.get("rest/cat/cats").success(function(response) {
 		$scope.slides = response;
-		
+		console.log("setting slides " + $scope.slides);
 		for (var i = 0; i < response.length; i++) {
 			 // Add an index
 			 $scope.slides[i].index = i;
