@@ -26,7 +26,7 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 				});
 	};
 	$scope.getActiveSlide = function() {
-		return $scope.active;
+		return $scope.slides[$scope.active];
 	};
 
 });
