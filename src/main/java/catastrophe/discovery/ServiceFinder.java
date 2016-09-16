@@ -39,8 +39,6 @@ public class ServiceFinder {
 
 		// Prefer an environment variable if one is set
 
-		System.out.println("Sanity check: " + env.get("HOLLY"));
-
 		String key = "SERVICE_" + serviceName.replace('.', '-');
 		System.out.println("Checking environment for " + key);
 		String value = env.get(key);
