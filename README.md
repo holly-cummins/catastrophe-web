@@ -29,11 +29,19 @@ To set up Eclipse projects, run
 
 ### Running the server locally (from the command line) 
 
+This service uses the [Liberty Consul Service Discovery sample extension](https://github.com/WASdev/sample.consulservicediscovery) to register itself with a Consul server. Before building, clone and build that project, so that it's in the local maven repository. 
+
 Run
 
     gradle runServer
 
-The application should be available on http://localhost:9080.
+The application should be available on http://localhost:8080.
+
+To exercise the end to end flow locally, you may wish to use the `SERVICE_` override of the consul extension, by adding the following to `server.env`
+
+    SERVICE_restscoring=localhost:8081
+    SERVICE_restcats=localhost:8082
+    SERVICE_restusers=localhost:8085
 
 ### Deploying to a single board computer 
 
