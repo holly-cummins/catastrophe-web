@@ -18,9 +18,7 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import catastrophe.cats.Cat;
-import catastrophe.cats.MiniCat;
-import catastrophe.cats.ScoredCat;
+import catastrophe.cats.ScorableCat;
 import catastrophe.discovery.ServiceFinder;
 
 @Path("cat")
@@ -35,7 +33,7 @@ public class RestCatStuff {
 	@PUT
 	@Path("guess/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ScoredCat score(@PathParam("id") int id, @QueryParam("catName") String guess,
+	public ScorableCat score(@PathParam("id") int id, @QueryParam("catName") String guess,
 			@Context HttpServletRequest request) {
 		// Get user from session
 		String userName = (String) request.getSession().getAttribute("cat.user");
@@ -46,8 +44,9 @@ public class RestCatStuff {
 			String catPath = CAT_PATH + "/cat/" + id;
 			WebTarget target = client.target("http://" + host).path(catPath);
 			System.out.println("Requesting " + host + catPath);
-			@SuppressWarnings("unchecked")
-			Cat cat = (Cat) target.request(MediaType.APPLICATION_JSON).get(new GenericType(Cat.class));
+			@SuppressWarnings({ "unchecked", "rawtypes" })
+			ScorableCat cat = (ScorableCat) target.request(MediaType.APPLICATION_JSON)
+					.get(new GenericType(ScorableCat.class));
 
 			String realName = cat.getRealName();
 
@@ -68,14 +67,14 @@ public class RestCatStuff {
 			Response response = authTarget.request(MediaType.APPLICATION_JSON).post(null);
 			System.out.println("Score update response is " + response.getStatus());
 
-			ScoredCat gc = new ScoredCat(cat);
-			gc.setScore(score);
+			cat.setScore(score);
 
-			return gc;
+			return cat;
 		}
 		return null;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@GET
 	@Path("scores")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -95,15 +94,15 @@ public class RestCatStuff {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	@GET
 	@Path("cats")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Set<MiniCat> getCats() {
+	public Set getCats() {
 		String host = new ServiceFinder().getHostAndPort(CAT_PATH);
 		if (host != null) {
 			WebTarget target = client.target("http://" + host).path(CAT_PATH + "/cats");
-			Set<MiniCat> response = target.request(MediaType.APPLICATION_JSON)
-					.get(new GenericType<Set<MiniCat>>(Set.class));
+			Set response = target.request(MediaType.APPLICATION_JSON).get(new GenericType<Set>(Set.class));
 
 			return response;
 		} else {
