@@ -18,7 +18,8 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import catastrophe.cats.ScorableCat;
+import catastrophe.cats.Cat;
+import catastrophe.cats.Score;
 import catastrophe.discovery.ServiceFinder;
 
 @Path("cat")
@@ -33,7 +34,7 @@ public class RestCatStuff {
 	@PUT
 	@Path("guess/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ScorableCat score(@PathParam("id") int id, @QueryParam("catName") String guess,
+	public Score score(@PathParam("id") int id, @QueryParam("catName") String guess,
 			@Context HttpServletRequest request) {
 		// Get user from session
 		String userName = (String) request.getSession().getAttribute("cat.user");
@@ -45,8 +46,7 @@ public class RestCatStuff {
 			WebTarget target = client.target("http://" + host).path(catPath);
 			System.out.println("Requesting " + host + catPath);
 			@SuppressWarnings({ "unchecked", "rawtypes" })
-			ScorableCat cat = (ScorableCat) target.request(MediaType.APPLICATION_JSON)
-					.get(new GenericType(ScorableCat.class));
+			Cat cat = (Cat) target.request(MediaType.APPLICATION_JSON).get(new GenericType(Cat.class));
 
 			String realName = cat.getRealName();
 
@@ -55,21 +55,21 @@ public class RestCatStuff {
 			System.out.println("Requesting " + scoreHost + scorePath);
 			WebTarget scoreTarget = client.target("http://" + scoreHost).path(scorePath)
 					.queryParam("realName", realName).queryParam("guess", guess);
-			int score = scoreTarget.request(MediaType.APPLICATION_JSON).get(Integer.class);
+			Score score = scoreTarget.request(MediaType.APPLICATION_JSON).get(Score.class);
 
 			System.out.println("Going to update " + userName + " with a score of " + score + ".");
-			String authHost = new ServiceFinder().getHostAndPort(USERS_PATH);
+			String usersHost = new ServiceFinder().getHostAndPort(USERS_PATH);
 			String updateScorePath = USERS_PATH + "/updateScore/";
-			System.out.println("Requesting " + authHost + updateScorePath);
-			WebTarget authTarget = client.target("http://" + authHost).path(updateScorePath)
-					.queryParam("userName", userName).queryParam("score", score);
+			System.out.println("Requesting " + usersHost + updateScorePath);
+			WebTarget authTarget = client.target("http://" + usersHost).path(updateScorePath)
+					.queryParam("userName", userName).queryParam("score", score.getScore());
 
 			Response response = authTarget.request(MediaType.APPLICATION_JSON).post(null);
 			System.out.println("Score update response is " + response.getStatus());
 
-			cat.setScore(score);
-
-			return cat;
+			// Now fill in information we already know
+			score.setRealName(realName);
+			return score;
 		}
 		return null;
 	}

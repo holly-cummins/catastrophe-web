@@ -1,31 +1,10 @@
 package catastrophe.cats;
 
-public class ScorableCat {
-	private int score;
+public class Cat {
 	private String realName;
 	private String attribution;
 	private long id;
 	private String image;
-
-	// Constructor for jackson
-	public ScorableCat() {
-		super();
-	}
-
-	public ScorableCat(long id, String realName, String image, String attribution) {
-		this.id = id;
-		this.image = image;
-		this.realName = realName;
-		this.attribution = attribution;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
 
 	public long getId() {
 		return id;

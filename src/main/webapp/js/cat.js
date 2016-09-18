@@ -17,8 +17,10 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 
 		$http.put("rest/cat/guess/" + id + "?catName=" + $scope.catName)
 				.success(function(response) {
-					activeSlide.score = 'score: ' + response.score + '%';
-					activeSlide.realName = 'actual name: ' + response.realName;
+					console.log(response);
+					$scope.slideScore = 'score: ' + response.score + '%';
+					$scope.realName = 'actual name: ' + response.realName;
+					$scope.algorithm = 'powered by: ' + response.scoringAlgorithm;
 
 					// Send an event so the leaderboard can update
 					$rootScope.$broadcast('score-updated');
