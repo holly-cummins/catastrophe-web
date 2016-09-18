@@ -1,0 +1,57 @@
+---
+stages:
+- name: Checkout
+  inputs:
+  - type: git
+    branch: master
+  triggers:
+  - type: commit
+  jobs:
+  - name: Build
+    type: builder
+    artifact_dir: ''
+    build_type: shell
+    script: "#!/bin/bash\n# move this extract to a subfolder\nmkdir catastrophe-web\
+      \ \nmv * catastrophe-web || true \n# Also get the liberty extension for service\
+      \ discovery\ngit clone https://github.com/WASdev/sample.consulservicediscovery"
+- name: Build
+  inputs:
+  - type: job
+    stage: Checkout
+    job: Build
+  triggers:
+  - type: stage
+  jobs:
+  - name: Build
+    type: builder
+    artifact_dir: catastrophe-web/build/servers/
+    build_type: gradle
+    script: |-
+      #!/bin/bash
+      # The default Gradle version is 1.12
+      # To use Gradle 2.9, uncomment the following line:
+      #export PATH="$GRADLE2_HOME/bin:$PATH"
+      # Get the consul feature into the local maven repo
+      cd sample.consulservicediscovery/consul-user-feature
+      mvn install
+      # Now build our product
+      cd ../../catastrophe-web
+      gradle packageServer
+- name: Deploy
+  inputs:
+  - type: job
+    stage: Build
+    job: Build
+  triggers:
+  - type: stage
+  jobs:
+  - name: Deploy
+    type: deployer
+    target:
+      url: ${CF_TARGET_URL}
+      organization: ${CF_ORGANIZATION}
+      space: ${CF_SPACE}
+      application: ${CF_APP}
+    script: |-
+      #!/bin/bash
+      cf push "${CF_APP}" -p packagedServer.zip

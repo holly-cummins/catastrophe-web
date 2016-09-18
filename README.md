@@ -8,13 +8,17 @@ This sample is one microservice in a [larger sample
 microservices application](http://github.com/holly-cummins/catastrophe-microservices). If you’re wondering about the names – all good internet content involves cats. This sample was written
 to be used as a live demo, and I have some experience of live demos, so I called it – of course – cat-astrophe. 
 
-This service stores information about cats. 
+This service contains the web front-end, and manages communication between clients and the back-end services. 
 
 This application is designed to run on a [raspberry pi](http://www.linksprite.com/linksprite-pcduino/) (and optionally [Bluemix](http://bluemix.net)), and runs on [WebSphere Liberty](http://wasdev.net). 
 
 **[License information](LICENSE.txt)** 
 
 ## Getting started 
+
+Press this button to get your own copy of the sample running in Bluemix. 
+
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/holly-cummins/catastrophe-web)
 
 ### Eclipse integration 
 
