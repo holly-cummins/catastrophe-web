@@ -1,4 +1,12 @@
+window.onload = function() {
+var canvas = new fabric.Canvas('catcanvas');
+canvas.isDrawingMode = true;
+canvas.freeDrawingBrush.width = 2;
+console.log(canvas);
+}
+
 var app = angular.module('wasdev.sample.catastrophe.ui', [ 'ngAnimate','ui.bootstrap' ]);
+
 app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 	$scope.catName = 'a cat';
 	$scope.noWrapSlides = false;
@@ -7,8 +15,10 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 
 		for (var i = 0; i < response.length; i++) {
 			 // Add an index
-			 $scope.slides[i].index = i;
-	    		}
+			 // Bump by one to allow for the canvas
+			 $scope.slides[i].index = i + 1;
+   		}
+		
 	  }); 
 	  
 	$scope.scoreName = function() {
