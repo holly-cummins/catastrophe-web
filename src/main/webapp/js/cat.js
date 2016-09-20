@@ -24,6 +24,9 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 	  
 	$scope.scoreName = function() {
 		$scope.status = 'scoring ...';
+		$scope.slideScore = '';
+		$scope.bestGuess = '';
+		$scope.algorithm = '';
 		var activeSlide = $scope.getActiveSlide();
 		var id = activeSlide.id;
 
