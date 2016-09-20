@@ -4,7 +4,8 @@ public class Score {
 
 	private Integer score;
 	private String algorithm;
-	public String bestGuess;
+	private String bestGuess;
+	private String fact;
 
 	public Integer getScore() {
 		return score;
@@ -28,5 +29,14 @@ public class Score {
 
 	public void setBestGuess(String bestGuess) {
 		this.bestGuess = bestGuess;
+	}
+
+	public String getFact() {
+		return fact;
+	}
+
+	public void setFact(String fact) {
+		this.fact = fact;
+
 	}
 }

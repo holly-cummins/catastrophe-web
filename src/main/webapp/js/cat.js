@@ -27,8 +27,8 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 		$scope.slideScore = '';
 		$scope.bestGuess = '';
 		$scope.algorithm = '';
+		$scope.fact = '';
 		var activeSlide = $scope.getActiveSlide();
-		var id = activeSlide.id;
 
 		var img = canvas.toDataURL('image/png');
 		$http.put("rest/cat/score", {}, {params: {"encodedImage": img}})
@@ -37,19 +37,20 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 					$scope.slideScore = 'score: ' + response.score + '%';
 					$scope.bestGuess = 'this looks most like: a ' + response.bestGuess;
 					$scope.algorithm = 'powered by: ' + response.scoringAlgorithm;
+                    $scope.fact = response.fact;
 
-					// Send an event so the leaderboard can update
+                    // Send an event so the leaderboard can update
 					$rootScope.$broadcast('score-updated');
 
 				});
 	};
 	$scope.getActiveSlide = function() {
 		if ($scope.slides)
-			{
-		return $scope.slides[$scope.active];
-			} else {
-				return 0;
-			}
+	    {
+		   return $scope.slides[$scope.active];
+	    } else {
+		  return undefined;
+	    }
 	};
 
 });

@@ -37,11 +37,9 @@ public class RestCatStuff {
 		String userName = (String) request.getSession().getAttribute("cat.user");
 		System.out.println(userName + " put in a guess of " + encodedImage);
 
-		String host = new ServiceFinder().getHostAndPort(CAT_PATH);
-		if (host != null) {
-
-			String scoreHost = new ServiceFinder().getHostAndPort(SCORING_PATH);
-			String scorePath = SCORING_PATH + "/score/";
+		String scoreHost = new ServiceFinder().getHostAndPort(SCORING_PATH);
+		String scorePath = SCORING_PATH + "/score/";
+		if (scoreHost != null) {
 			System.out.println("Requesting " + scoreHost + scorePath);
 			WebTarget scoreTarget = client.target("http://" + scoreHost).path(scorePath).queryParam("encodedImage",
 					encodedImage);
@@ -49,14 +47,24 @@ public class RestCatStuff {
 
 			System.out.println("Going to update " + userName + " with a score of " + score + ".");
 			String usersHost = new ServiceFinder().getHostAndPort(USERS_PATH);
-			String updateScorePath = USERS_PATH + "/updateScore/";
-			System.out.println("Requesting " + usersHost + updateScorePath);
-			WebTarget authTarget = client.target("http://" + usersHost).path(updateScorePath)
-					.queryParam("userName", userName).queryParam("score", score.getScore())
-					.queryParam("image", encodedImage);
+			if (usersHost != null) {
+				String updateScorePath = USERS_PATH + "/updateScore/";
+				System.out.println("Requesting " + usersHost + updateScorePath);
+				WebTarget usersTarget = client.target("http://" + usersHost).path(updateScorePath)
+						.queryParam("userName", userName).queryParam("score", score.getScore())
+						.queryParam("image", encodedImage);
 
-			Response response = authTarget.request(MediaType.APPLICATION_JSON).post(null);
-			System.out.println("Score update response is " + response.getStatus());
+				Response response = usersTarget.request(MediaType.APPLICATION_JSON).post(null);
+				System.out.println("Score update response is " + response.getStatus());
+			}
+
+			String factHost = new ServiceFinder().getHostAndPort(CAT_PATH);
+			if (factHost != null) {
+				String factPath = CAT_PATH + "/fact/" + score.getBestGuess();
+				WebTarget factsTarget = client.target("http://" + factHost).path(factPath);
+				String fact = factsTarget.request(MediaType.APPLICATION_JSON).get(String.class);
+				score.setFact(fact);
+			}
 
 			return score;
 		}
