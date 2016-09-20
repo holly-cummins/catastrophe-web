@@ -1,8 +1,9 @@
+var canvas;
+
 window.onload = function() {
-var canvas = new fabric.Canvas('catcanvas');
-canvas.isDrawingMode = true;
-canvas.freeDrawingBrush.width = 2;
-console.log(canvas);
+  canvas = new fabric.Canvas('catcanvas');
+  canvas.isDrawingMode = true;
+  canvas.freeDrawingBrush.width = 2;
 }
 
 var app = angular.module('wasdev.sample.catastrophe.ui', [ 'ngAnimate','ui.bootstrap' ]);
@@ -25,7 +26,9 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 		var activeSlide = $scope.getActiveSlide();
 		var id = activeSlide.id;
 
-		$http.put("rest/cat/guess/" + id + "?catName=" + $scope.catName)
+		var img = canvas.toDataURL('image/png');
+		console.log(img);
+		$http.put("rest/cat/score?encodedImage=" + img)
 				.success(function(response) {
 					console.log(response);
 					$scope.slideScore = 'score: ' + response.score + '%';

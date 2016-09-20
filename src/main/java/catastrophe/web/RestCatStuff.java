@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.client.Client;
@@ -32,15 +31,17 @@ public class RestCatStuff {
 	Client client = ClientBuilder.newClient();
 
 	@PUT
-	@Path("guess/{id}")
+	@Path("score")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Score score(@PathParam("id") int id, @QueryParam("catName") String guess,
-			@Context HttpServletRequest request) {
+	public Score score(@QueryParam("encodedImage") String encodedImage, @Context HttpServletRequest request) {
 		// Get user from session
 		String userName = (String) request.getSession().getAttribute("cat.user");
-		System.out.println(userName + " put in a guess of " + guess);
+		System.out.println(userName + " put in a guess of " + encodedImage);
 
 		String host = new ServiceFinder().getHostAndPort(CAT_PATH);
+		// TODO
+		int id = 40;
+		String guess = "fred";
 		if (host != null) {
 			String catPath = CAT_PATH + "/cat/" + id;
 			WebTarget target = client.target("http://" + host).path(catPath);
