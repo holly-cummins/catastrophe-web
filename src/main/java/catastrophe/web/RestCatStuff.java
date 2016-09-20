@@ -52,7 +52,8 @@ public class RestCatStuff {
 			String updateScorePath = USERS_PATH + "/updateScore/";
 			System.out.println("Requesting " + usersHost + updateScorePath);
 			WebTarget authTarget = client.target("http://" + usersHost).path(updateScorePath)
-					.queryParam("userName", userName).queryParam("score", score.getScore());
+					.queryParam("userName", userName).queryParam("score", score.getScore())
+					.queryParam("image", encodedImage);
 
 			Response response = authTarget.request(MediaType.APPLICATION_JSON).post(null);
 			System.out.println("Score update response is " + response.getStatus());
