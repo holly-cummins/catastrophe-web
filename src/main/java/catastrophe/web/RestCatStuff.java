@@ -87,10 +87,12 @@ public class RestCatStuff {
 	@GET
 	@Path("cats")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Set getCats() {
-		String host = new ServiceFinder().getHostAndPort(CAT_PATH);
+	public Set getCats(@Context HttpServletRequest request) {
+		// Get user from session
+		String userName = (String) request.getSession().getAttribute("cat.user");
+		String host = new ServiceFinder().getHostAndPort(USERS_PATH);
 		if (host != null) {
-			WebTarget target = client.target("http://" + host).path(CAT_PATH + "/cats");
+			WebTarget target = client.target("http://" + host).path(USERS_PATH + "/" + userName);
 			Set response = target.request(MediaType.APPLICATION_JSON).get(new GenericType<Set>(Set.class));
 
 			return response;
