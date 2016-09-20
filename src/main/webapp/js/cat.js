@@ -30,7 +30,7 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 		$http.put("rest/cat/score", {}, {params: {"encodedImage": img}})
 				.success(function(response) {
 					$scope.slideScore = 'score: ' + response.score + '%';
-					$scope.realName = 'this looks most like: a ' + response.bestGuess;
+					$scope.bestGuess = 'this looks most like: a ' + response.bestGuess;
 					$scope.algorithm = 'powered by: ' + response.scoringAlgorithm;
 
 					// Send an event so the leaderboard can update

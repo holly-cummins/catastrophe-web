@@ -1,7 +1,6 @@
 package catastrophe.cats;
 
 public class Cat {
-	private String realName;
 	private String attribution;
 	private long id;
 	private String image;
@@ -23,16 +22,8 @@ public class Cat {
 		this.image = image;
 	}
 
-	public String getRealName() {
-		return realName;
-	}
-
 	public String getAttribution() {
 		return attribution;
-	}
-
-	public void setRealName(String realName) {
-		this.realName = realName;
 	}
 
 	public void setAttribution(String attribution) {
