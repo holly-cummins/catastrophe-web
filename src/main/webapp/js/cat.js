@@ -23,12 +23,14 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 	  }); 
 	  
 	$scope.scoreName = function() {
+		$scope.status = 'scoring ...';
 		var activeSlide = $scope.getActiveSlide();
 		var id = activeSlide.id;
 
 		var img = canvas.toDataURL('image/png');
 		$http.put("rest/cat/score", {}, {params: {"encodedImage": img}})
 				.success(function(response) {
+					$scope.status = '';
 					$scope.slideScore = 'score: ' + response.score + '%';
 					$scope.bestGuess = 'this looks most like: a ' + response.bestGuess;
 					$scope.algorithm = 'powered by: ' + response.scoringAlgorithm;
