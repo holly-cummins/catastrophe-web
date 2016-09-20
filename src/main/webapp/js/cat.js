@@ -27,12 +27,10 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 		var id = activeSlide.id;
 
 		var img = canvas.toDataURL('image/png');
-		console.log(img);
-		$http.put("rest/cat/score?encodedImage=" + img)
+		$http.put("rest/cat/score", {}, {params: {"encodedImage": img}})
 				.success(function(response) {
-					console.log(response);
 					$scope.slideScore = 'score: ' + response.score + '%';
-					$scope.realName = 'actual name: ' + response.realName;
+					$scope.realName = 'this looks most like: a ' + response.bestGuess;
 					$scope.algorithm = 'powered by: ' + response.scoringAlgorithm;
 
 					// Send an event so the leaderboard can update
@@ -41,7 +39,12 @@ app.controller('CarouselCtrl', function($scope, $rootScope, $http) {
 				});
 	};
 	$scope.getActiveSlide = function() {
+		if ($scope.slides)
+			{
 		return $scope.slides[$scope.active];
+			} else {
+				return 0;
+			}
 	};
 
 });

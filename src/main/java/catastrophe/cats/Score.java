@@ -4,7 +4,7 @@ public class Score {
 
 	private Integer score;
 	private String algorithm;
-	public String realName;
+	public String bestGuess;
 
 	public Integer getScore() {
 		return score;
@@ -22,11 +22,11 @@ public class Score {
 		this.algorithm = algorithm;
 	}
 
-	public String getRealName() {
-		return realName;
+	public String getBestGuess() {
+		return bestGuess;
 	}
 
-	public void setRealName(String realName) {
-		this.realName = realName;
+	public void setBestGuess(String bestGuess) {
+		this.bestGuess = bestGuess;
 	}
 }

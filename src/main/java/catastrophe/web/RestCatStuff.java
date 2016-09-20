@@ -17,7 +17,6 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import catastrophe.cats.Cat;
 import catastrophe.cats.Score;
 import catastrophe.discovery.ServiceFinder;
 
@@ -39,23 +38,13 @@ public class RestCatStuff {
 		System.out.println(userName + " put in a guess of " + encodedImage);
 
 		String host = new ServiceFinder().getHostAndPort(CAT_PATH);
-		// TODO
-		int id = 40;
-		String guess = "fred";
 		if (host != null) {
-			String catPath = CAT_PATH + "/cat/" + id;
-			WebTarget target = client.target("http://" + host).path(catPath);
-			System.out.println("Requesting " + host + catPath);
-			@SuppressWarnings({ "unchecked", "rawtypes" })
-			Cat cat = (Cat) target.request(MediaType.APPLICATION_JSON).get(new GenericType(Cat.class));
-
-			String realName = cat.getRealName();
 
 			String scoreHost = new ServiceFinder().getHostAndPort(SCORING_PATH);
 			String scorePath = SCORING_PATH + "/score/";
 			System.out.println("Requesting " + scoreHost + scorePath);
-			WebTarget scoreTarget = client.target("http://" + scoreHost).path(scorePath)
-					.queryParam("realName", realName).queryParam("guess", guess);
+			WebTarget scoreTarget = client.target("http://" + scoreHost).path(scorePath).queryParam("encodedImage",
+					encodedImage);
 			Score score = scoreTarget.request(MediaType.APPLICATION_JSON).get(Score.class);
 
 			System.out.println("Going to update " + userName + " with a score of " + score + ".");
@@ -68,8 +57,6 @@ public class RestCatStuff {
 			Response response = authTarget.request(MediaType.APPLICATION_JSON).post(null);
 			System.out.println("Score update response is " + response.getStatus());
 
-			// Now fill in information we already know
-			score.setRealName(realName);
 			return score;
 		}
 		return null;
