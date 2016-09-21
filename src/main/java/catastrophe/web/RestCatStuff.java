@@ -44,6 +44,7 @@ public class RestCatStuff {
 			WebTarget scoreTarget = client.target("http://" + scoreHost).path(scorePath).queryParam("encodedImage",
 					encodedImage);
 			Score score = scoreTarget.request(MediaType.APPLICATION_JSON).get(Score.class);
+			score.setCatastropheScoring(scoreHost);
 
 			System.out.println("Going to update " + userName + " with a score of " + score + ".");
 			String usersHost = new ServiceFinder().getHostAndPort(USERS_PATH);
@@ -64,6 +65,8 @@ public class RestCatStuff {
 				WebTarget factsTarget = client.target("http://" + factHost).path(factPath);
 				String fact = factsTarget.request(MediaType.APPLICATION_JSON).get(String.class);
 				score.setFact(fact);
+
+				score.setCatastropheCats(factHost);
 			}
 
 			return score;
@@ -75,7 +78,7 @@ public class RestCatStuff {
 	@GET
 	@Path("scores")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List getLeaderboard() {
+	public ScoreList getLeaderboard() {
 
 		String host = new ServiceFinder().getHostAndPort(USERS_PATH);
 		if (host != null) {
@@ -83,8 +86,10 @@ public class RestCatStuff {
 			System.out.println("Requesting " + authPath);
 			WebTarget target = client.target("http://" + host).path(authPath);
 			List response = target.request(MediaType.APPLICATION_JSON).get(new GenericType<List>(List.class));
-
-			return response;
+			ScoreList list = new ScoreList();
+			list.setScores(response);
+			list.setCatastropheUsers(host);
+			return list;
 		} else {
 			System.out.println("No provider for service " + USERS_PATH);
 			return null;
@@ -95,15 +100,22 @@ public class RestCatStuff {
 	@GET
 	@Path("cats")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Set getCats(@Context HttpServletRequest request) {
+	public CatImageSet getCats(@Context HttpServletRequest request) {
 		// Get user from session
 		String userName = (String) request.getSession().getAttribute("cat.user");
 		String host = new ServiceFinder().getHostAndPort(USERS_PATH);
+		if (userName == null || userName.length() == 0) {
+			System.out.println("Cannot get history for null user");
+			return null;
+		}
+
 		if (host != null) {
 			WebTarget target = client.target("http://" + host).path(USERS_PATH + "/" + userName);
 			Set response = target.request(MediaType.APPLICATION_JSON).get(new GenericType<Set>(Set.class));
-
-			return response;
+			CatImageSet list = new CatImageSet();
+			list.setCats(response);
+			list.setCatastropheUsers(host);
+			return list;
 		} else {
 			System.out.println("No provider for service " + CAT_PATH);
 			return null;

@@ -37,7 +37,7 @@
 				<div ng-controller="CarouselCtrl">
 					<div class="microservice"  style="border-color: blue;">
 						<p
-							style="color: blue; width: 120px; margin-top: -17pt; margin-left: 15px; background: white;">&nbsp;catastrophe-users</p>
+							style="color: blue; width: 230px; margin-top: -17pt; margin-left: 15px; background: white;">&nbsp;catastrophe-users {{catastropheUsers}}</p>
 						<div style="height: 305px">
 							<uib-carousel interval="-1" no-wrap="noWrapSlides"
 								active="active">
@@ -58,7 +58,7 @@
 													<div class="row">
 								<div class="microservice" style="border-color: red">
 						<p
-							style="color: red; width: 120px; margin-top: -17pt; margin-left: 15px; background: white;">&nbsp;catastrophe-cats</p>
+							style="color: red; width: 250px; margin-top: -17pt; margin-left: 15px; background: white;">&nbsp;catastrophe-cats {{catastropheCats}}</p>
 	<p>{{fact}}
 	</div>
 	</div>					<div style="padding: 10px">
@@ -75,7 +75,7 @@
 								<div class="microservice" 
 									style="border-color: darkmagenta">
 									<p
-										style="color: darkmagenta; width: 140px; margin-top: -17pt; margin-left: 15px; background: white">&nbsp;catastrophe-scoring</p>
+										style="color: darkmagenta; width: 250px; margin-top: -17pt; margin-left: 15px; background: white">&nbsp;catastrophe-scoring {{catastropheScoring}}</p>
 									<h4>{{status}}</h4>
 									<h4>{{slideScore}}</h4>
 									<p>{{bestGuess}}</p>
@@ -95,7 +95,7 @@
 					ng-controller="leaderboardCtrl">
 					<div class="microservice" style="border-color: blue">
 						<p
-							style="color: blue; width: 120px; margin-top: -17pt; margin-left: 15px; background: white;">&nbsp;catastrophe-users</p>
+							style="color: blue; width: 230px; margin-top: -17pt; margin-left: 15px; background: white;">&nbsp;catastrophe-users {{catastropheUsers}}</p>
 						<h4>Leader board</h4>
 						<p>Who is our cat-drawing champion?</p>
 						<div class="table-responsive">

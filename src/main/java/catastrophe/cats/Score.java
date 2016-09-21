@@ -6,6 +6,8 @@ public class Score {
 	private String algorithm;
 	private String bestGuess;
 	private String fact;
+	private String catastropheCats = "unknown";
+	private String catastropheScoring = "unknown";
 
 	public Integer getScore() {
 		return score;
@@ -38,5 +40,21 @@ public class Score {
 	public void setFact(String fact) {
 		this.fact = fact;
 
+	}
+
+	public String getCatastropheCats() {
+		return catastropheCats;
+	}
+
+	public void setCatastropheCats(String host) {
+		catastropheCats = host;
+	}
+
+	public String getCatastropheScoring() {
+		return catastropheScoring;
+	}
+
+	public void setCatastropheScoring(String host) {
+		catastropheScoring = host;
 	}
 }
