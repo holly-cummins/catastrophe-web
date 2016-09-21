@@ -36,8 +36,8 @@
 				<!-- Include all compiled plugins (below), or include individual files as needed -->
 				<div ng-controller="CarouselCtrl">
 					<div class="microservice"  style="border-color: blue;">
-						<p
-							style="color: blue; width: 230px; margin-top: -17pt; margin-left: 15px; background: white;">&nbsp;catastrophe-users {{catastropheUsers}}</p>
+						<p  class="microservice-description"
+							style="color: blue;">&nbsp;catastrophe-users {{catastropheUsers}}</p>
 						<div style="height: 305px">
 							<uib-carousel interval="-1" no-wrap="noWrapSlides"
 								active="active">
@@ -57,8 +57,8 @@
 					<div style="padding: 10px">
 													<div class="row">
 								<div class="microservice" style="border-color: red">
-						<p
-							style="color: red; width: 250px; margin-top: -17pt; margin-left: 15px; background: white;">&nbsp;catastrophe-cats {{catastropheCats}}</p>
+						<p  class="microservice-description"
+							style="color: red;">&nbsp;catastrophe-cats {{catastropheCats}}</p>
 	<p>{{fact}}
 	</div>
 	</div>					<div style="padding: 10px">
@@ -74,8 +74,8 @@
 
 								<div class="microservice" 
 									style="border-color: darkmagenta">
-									<p
-										style="color: darkmagenta; width: 250px; margin-top: -17pt; margin-left: 15px; background: white">&nbsp;catastrophe-scoring {{catastropheScoring}}</p>
+									<p  class="microservice-description"
+										style="color: darkmagenta;">&nbsp;catastrophe-scoring {{catastropheScoring}}</p>
 									<h4>{{status}}</h4>
 									<h4>{{slideScore}}</h4>
 									<p>{{bestGuess}}</p>
@@ -94,8 +94,9 @@
 				<div class="sidebar-module sidebar-module-inset"
 					ng-controller="leaderboardCtrl">
 					<div class="microservice" style="border-color: blue">
-						<p
-							style="color: blue; width: 230px; margin-top: -17pt; margin-left: 15px; background: white;">&nbsp;catastrophe-users {{catastropheUsers}}</p>
+						<p class="microservice-description"
+							style="color: blue; 	margin-top: -12pt; 
+							font-size:60%">&nbsp;catastrophe-users {{catastropheUsers}}</p>
 						<h4>Leader board</h4>
 						<p>Who is our cat-drawing champion?</p>
 						<div class="table-responsive">

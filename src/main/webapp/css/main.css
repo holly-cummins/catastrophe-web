@@ -18,5 +18,12 @@ canvas {
 .microservice {
 	padding: 10px;
 	margin: 10px;
-	border-style: solid
+	border-style: solid;
+}
+
+.microservice-description {
+	margin-top: -17pt; 
+	margin-left: 15px; 
+	margin-right: 35px; 
+	background: white
 }
