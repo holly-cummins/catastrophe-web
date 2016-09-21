@@ -57,11 +57,31 @@ public class ServiceFinder {
 				int index = RANDOM.nextInt(numberOfServices);
 				System.out.println("Choosing service " + index + " of " + numberOfServices);
 				CatalogService service = list.get(index);
-				return service.getServiceAddress() + ":" + service.getServicePort();
+				// Massive temporary hack
+				if (!service.getServiceAddress().startsWith("169.")) {
+					return service.getServiceAddress() + ":" + service.getServicePort();
+				} else {
+					// Use hard-coded values to work out the secure gateway path
+					// This is the opposite of service discovery, of course
+					int port = service.getServicePort();
+					if (port == 8085) { // users, pi2
+						return "cap-sg-prd-5.integration.ibmcloud.com:17926";
+					} else if (port == 8082) { // cats, red pi
+						return "cap-sg-prd-5.integration.ibmcloud.com:16451";
+					} else if (port == 8081) { // scoring, localhost
+						return "cap-sg-prd-5.integration.ibmcloud.com:16193";
+					} else {
+						System.out.println("Could not unmap " + service.getServiceAddress());
+						return "unknown:8080";
+					}
+
+				}
 			} else {
 				System.out.println("No services available with name " + serviceName);
 			}
-		} catch (TransportException e) {
+		} catch (
+
+		TransportException e) {
 			System.out.println(e + CONSUL_HOST);
 		}
 		return null;
