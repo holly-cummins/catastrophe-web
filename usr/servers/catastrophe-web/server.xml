@@ -12,6 +12,6 @@
     <applicationMonitor dropinsEnabled='false' updateTrigger='mbean'/>
     <config updateTrigger='mbean'/>
 
-    <consul.annotation.scanner server="catastrophe-consul.mybluemix.net" port="80"/>
+    <consul.annotation.scanner port="${env.CONSUL_PORT}" server="http://${env.CONSUL_HOST}"/>
 </server>
 
