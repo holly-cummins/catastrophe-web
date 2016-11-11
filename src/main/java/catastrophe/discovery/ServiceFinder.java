@@ -18,7 +18,7 @@ public class ServiceFinder {
 	private static final QueryParams QUERY_PARAMS = new QueryParams(ConsistencyMode.DEFAULT);
 	private static final Random RANDOM = new Random();
 	private static final String CONSUL_HOST = System.getenv("CONSUL_HOST");
-	private static final int CONSUL_PORT = System.getenv("CONSUL_PORT");
+	private static final int CONSUL_PORT = Integer.valueOf(System.getenv("CONSUL_PORT"));
 	Set<String> serviceIds = new HashSet<String>();
 	final ConsulClient client;
 
