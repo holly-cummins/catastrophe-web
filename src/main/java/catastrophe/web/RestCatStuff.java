@@ -35,7 +35,7 @@ public class RestCatStuff {
 	public Score score(@QueryParam("encodedImage") String encodedImage, @Context HttpServletRequest request) {
 		// Get user from session
 		String userName = (String) request.getSession().getAttribute("cat.user");
-		System.out.println(userName + " put in a guess of " + encodedImage);
+		System.out.println(userName + " put in a guess; image has " + encodedImage.length() + " bytes");
 
 		String scoreHost = new ServiceFinder().getHostAndPort(SCORING_PATH);
 		String scorePath = SCORING_PATH + "/score/";
