@@ -4,8 +4,8 @@ echo ----$count-------
 echo "************************************"
 echo "*** Install Active Deploy Plugin ***"
 echo "************************************"
-./bincf add-plugin-repo bluemix http://plugins.ng.bluemix.net/
-./bincf install-plugin active-deploy -r bluemix 
+cf add-plugin-repo bluemix http://plugins.ng.bluemix.net/
+cf install-plugin active-deploy -r bluemix 
 appcnt=`cf apps|grep ${CF_APP}| wc -l`
 if [ $appcnt -gt 1 ]; then
 echo "***********************************"
