@@ -77,14 +77,14 @@ echo "new --> $new"
 echo "old --> $old"
 if [ $old == "" ] ; then
 echo "old not exist"
-cf push ${CF_APP}${count} -m 256MB -n ${CF_APP}
+cf push ${CF_APP}${count} -p packagedServer.zip -m 256MB -n ${CF_APP}
 else
 if [ ${new} != ${old} ] ; then 
 echo "*****************************************"
 echo "**   ENTERING ACTIVE DEPLOY            **"
 echo "*****************************************"
 routeflag=" --no-route"
-cf push ${CF_APP}${count}${routeflag} -m 256MB
+cf push ${CF_APP}${count}${routeflag} -p packagedServer.zip -m 256MB
 cf active-deploy-create $old $new --rampup 1m --test 1m --rampdown 1m -l ${CF_APP}_deploy
 sleep 240
 # show the status of completed deployment
